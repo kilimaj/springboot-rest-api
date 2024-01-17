@@ -38,7 +38,7 @@ public class StudentController {
 	 * to bind it to the value of a URI template variable.
 	 */
 	@GetMapping("students/{id}")
-	public Student studentPathVariable(@PathVariable int id) {
-		return new Student(id, "John", "Kilima");
+	public Student studentPathVariable(@PathVariable("id") int studentId) {
+		return new Student(studentId, "John", "Kilima");
 	}
 }
