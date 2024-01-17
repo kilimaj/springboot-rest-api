@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.kilima.springbootrestapi.bean.Student;
@@ -18,6 +19,7 @@ public class StudentController {
 		return student;
 	}
 
+	// http://localhost:8080/students
 	@GetMapping("students")
 	public List<Student> getStudents() {
 		List<Student> students = new ArrayList<>();
@@ -26,5 +28,17 @@ public class StudentController {
 		students.add(new Student(3, "Jean", "Bundala"));
 		students.add(new Student(4, "Barnabas", "Kilima"));
 		return students;
+	}
+	
+	/*
+	 * Spring boot rest api with path variable
+	 * {id} - URI template variable
+	 * http://localhost:8080/students/1
+	 * @PathVariable annotation used on a method argument 
+	 * to bind it to the value of a URI template variable.
+	 */
+	@GetMapping("students/{id}")
+	public Student studentPathVariable(@PathVariable int id) {
+		return new Student(id, "John", "Kilima");
 	}
 }
