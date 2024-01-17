@@ -29,16 +29,17 @@ public class StudentController {
 		students.add(new Student(4, "Barnabas", "Kilima"));
 		return students;
 	}
-	
+
 	/*
-	 * Spring boot rest api with path variable
-	 * {id} - URI template variable
-	 * http://localhost:8080/students/1
-	 * @PathVariable annotation used on a method argument 
-	 * to bind it to the value of a URI template variable.
+	 * Spring boot rest api with path variable {id} - URI template variable
+	 * http://localhost:8080/students/1/John/Mabula
+	 * 
+	 * @PathVariable annotation used on a method argument to bind it to the value of
+	 * a URI template variable.
 	 */
-	@GetMapping("students/{id}")
-	public Student studentPathVariable(@PathVariable("id") int studentId) {
-		return new Student(studentId, "John", "Kilima");
+	@GetMapping("students/{id}/{first-name}/{last-name}")
+	public Student studentPathVariable(@PathVariable("id") int studentId, @PathVariable("first-name") String firstName,
+			@PathVariable("last-name") String lastName) {
+		return new Student(studentId, firstName, lastName);
 	}
 }
