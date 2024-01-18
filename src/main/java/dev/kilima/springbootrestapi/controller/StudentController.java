@@ -43,14 +43,15 @@ public class StudentController {
 			@PathVariable("last-name") String lastName) {
 		return new Student(studentId, firstName, lastName);
 	}
-	
+
 	/*
-	 *  Spring Boot REST API with Request Param
-	 *  http://localhost:8080/students/query?id=1
+	 * Spring Boot REST API with Request Param
+	 * http://localhost:8080/students/query?id=1&firstName=Mabula&lastName=Kilima
 	 */
 	@GetMapping("students/query")
-	public Student studentRequestVariable(@RequestParam int id) {
-		return new Student(id, "Damas", "Mtinangi");
+	public Student studentRequestVariable(@RequestParam int id, @RequestParam String firstName,
+			@RequestParam String lastName) {
+		return new Student(id, firstName, lastName);
 	}
-	
+
 }
