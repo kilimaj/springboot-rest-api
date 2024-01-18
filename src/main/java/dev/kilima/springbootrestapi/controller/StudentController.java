@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -84,5 +85,11 @@ public class StudentController {
 		return student;
 	}
 	
+	//Spring Boot REST API that handles HTTP DELETE Request - deleteing existing resource
+	@DeleteMapping("students/{id}/delete")
+	public String deleteStudent(@PathVariable("id") int studentId) {
+		System.out.println(studentId);
+		return "Student successfully deleted";
+	}
 
 }
