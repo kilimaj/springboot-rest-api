@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -61,10 +62,10 @@ public class StudentController {
 	/*
 	 * Spring boot REST API that handles HTTP POST Request
 	 * @PostMapping - annotation is used for mapping HTTP POST request onto specific handler method
-	 *  and @RequestBody - annotation is responsible for retrieving the HTTP request body 
-	 *  and automatically converting it to the Java object.
-	 *  @RequestBody annotation internally uses Spring provided HttpMessageConverter 
-	 *  to convert JSON into Java object
+	 * and @RequestBody - annotation is responsible for retrieving the HTTP request body 
+	 * and automatically converting it to the Java object.
+	 * @RequestBody annotation internally uses Spring provided HttpMessageConverter 
+	 * to convert JSON into Java object
 	 */
 	@PostMapping("students/create")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -74,5 +75,14 @@ public class StudentController {
 		System.out.println(student.getLastName());
 		return student;
 	}
+	
+	//Spring Boot REST API that handles HTTP PUT Request - updating existing resource
+	@PutMapping("students/{id}/update")
+	public Student updateStudent(@RequestBody Student student,@PathVariable("id") int studentId) {
+		System.out.println(student.getFirstName());
+		System.out.println(student.getLastName());
+		return student;
+	}
+	
 
 }
