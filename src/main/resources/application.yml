@@ -3,3 +3,9 @@ spring:
     password: john1234
     url: jdbc:mysql://localhost:3306/user_management
     username: john
+
+  jpa:
+    properties:
+      dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
