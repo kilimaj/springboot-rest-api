@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import dev.kilima.springbootrestapi.dto.UserDto;
 import dev.kilima.springbootrestapi.entity.User;
 import dev.kilima.springbootrestapi.repository.UserRepository;
 import dev.kilima.springbootrestapi.service.UserService;
@@ -17,8 +18,26 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 	
 	@Override
-	public User createUser(User user) {
-		return userRepository.save(user);
+	public UserDto createUser(UserDto userDto) {
+		
+		//Convert UserDto to User JPA entity
+		User user = new User(
+				userDto.getId(),
+				userDto.getFirstName(),
+				userDto.getLastName(),
+				userDto.getEmail()
+				);
+		 User savedUser = userRepository.save(user);
+		 
+		 //Convert User JPA entity to UserDto
+		 UserDto savedUserDto = new UserDto(
+				 savedUser.getId(),
+				 savedUser.getFirstName(),
+				 savedUser.getLastName(),
+				 savedUser.getEmail()
+				 );
+		 
+		 return savedUserDto;
 	}
 
 	@Override
