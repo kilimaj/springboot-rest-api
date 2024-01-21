@@ -8,7 +8,7 @@ import dev.kilima.springbootrestapi.entity.User;
 public interface UserService {
 	UserDto createUser(UserDto user);
 	
-	User getUserById(Long userId);
+	UserDto getUserById(Long userId);
 	
 	List<User> getAllUsers();
 	
