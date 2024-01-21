@@ -2,6 +2,7 @@ package dev.kilima.springbootrestapi.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
 
 		// Convert UserDto to User JPA entity
 		User user = UserMapper.mapToUser(userDto);
-		
+
 		User savedUser = userRepository.save(user);
 
 		// Convert User JPA entity to UserDto
@@ -40,8 +41,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> getAllUsers() {
-		return userRepository.findAll();
+	public List<UserDto> getAllUsers() {
+		List<User> users = userRepository.findAll();
+		return users.stream().map(UserMapper::mapToUserDto).collect(Collectors.toList());
 	}
 
 	@Override
