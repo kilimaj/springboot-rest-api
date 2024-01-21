@@ -6,7 +6,7 @@ import dev.kilima.springbootrestapi.entity.User;
 public class UserMapper {
 
 	// Convert User JPA Entity into User DTO
-	public static UserDto maoToUserDto(User user) {
+	public static UserDto mapToUserDto(User user) {
 		UserDto userDto = new UserDto(
 				user.getId(),
 				user.getFirstName(),

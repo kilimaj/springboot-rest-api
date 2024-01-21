@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import dev.kilima.springbootrestapi.dto.UserDto;
 import dev.kilima.springbootrestapi.entity.User;
+import dev.kilima.springbootrestapi.mapper.UserMapper;
 import dev.kilima.springbootrestapi.repository.UserRepository;
 import dev.kilima.springbootrestapi.service.UserService;
 import lombok.AllArgsConstructor;
@@ -16,28 +17,19 @@ import lombok.AllArgsConstructor;
 public class UserServiceImpl implements UserService {
 
 	private UserRepository userRepository;
-	
+
 	@Override
 	public UserDto createUser(UserDto userDto) {
+
+		// Convert UserDto to User JPA entity
+		User user = UserMapper.mapToUser(userDto);
 		
-		//Convert UserDto to User JPA entity
-		User user = new User(
-				userDto.getId(),
-				userDto.getFirstName(),
-				userDto.getLastName(),
-				userDto.getEmail()
-				);
-		 User savedUser = userRepository.save(user);
-		 
-		 //Convert User JPA entity to UserDto
-		 UserDto savedUserDto = new UserDto(
-				 savedUser.getId(),
-				 savedUser.getFirstName(),
-				 savedUser.getLastName(),
-				 savedUser.getEmail()
-				 );
-		 
-		 return savedUserDto;
+		User savedUser = userRepository.save(user);
+
+		// Convert User JPA entity to UserDto
+		UserDto savedUserDto = UserMapper.mapToUserDto(savedUser);
+
+		return savedUserDto;
 	}
 
 	@Override
@@ -64,7 +56,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUser(Long userId) {
 		userRepository.deleteById(userId);
-		
+
 	}
 
 }
