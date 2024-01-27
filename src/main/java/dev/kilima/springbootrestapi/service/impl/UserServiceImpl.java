@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import dev.kilima.springbootrestapi.dto.UserDto;
 import dev.kilima.springbootrestapi.entity.User;
+import dev.kilima.springbootrestapi.exception.ResourceNotFoundException;
 import dev.kilima.springbootrestapi.mapper.AutoUserMapper;
 import dev.kilima.springbootrestapi.mapper.UserMapper;
 import dev.kilima.springbootrestapi.repository.UserRepository;
@@ -47,8 +48,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto getUserById(Long userId) {
-		Optional<User> optionalUser = userRepository.findById(userId);
-		User user = optionalUser.get();
+		User user = userRepository.findById(userId).orElseThrow(
+					() -> new ResourceNotFoundException("User", "id", userId)
+				);
+		//User user = optionalUser.get(); .get was used to get value from optional
 		//return UserMapper.mapToUserDto(user);
 		return modelMapper.map(user, UserDto.class);
 		//return AutoUserMapper.MAPPER.mapToUserDto(user);
@@ -67,7 +70,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto updateUser(UserDto user) {
-		User existingUser = userRepository.findById(user.getId()).get();
+		User existingUser = userRepository.findById(user.getId()).orElseThrow(
+					() -> new ResourceNotFoundException("User", "id", user.getId())
+				);
 		existingUser.setFirstName(user.getFirstName());
 		existingUser.setLastName(user.getLastName());
 		existingUser.setEmail(user.getEmail());
@@ -79,6 +84,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void deleteUser(Long userId) {
+		
+		User existingUser = userRepository.findById(userId).orElseThrow(
+			() -> new ResourceNotFoundException("User", "id", userId)
+		);
+		
 		userRepository.deleteById(userId);
 
 	}
