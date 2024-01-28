@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import dev.kilima.springbootrestapi.dto.UserDto;
 import dev.kilima.springbootrestapi.entity.User;
+import dev.kilima.springbootrestapi.exception.EmailAlreadyExistException;
 import dev.kilima.springbootrestapi.exception.ResourceNotFoundException;
 import dev.kilima.springbootrestapi.mapper.AutoUserMapper;
 import dev.kilima.springbootrestapi.mapper.UserMapper;
@@ -35,6 +36,12 @@ public class UserServiceImpl implements UserService {
 		User user = modelMapper.map(userDto, User.class);
 		
 		//User user = AutoUserMapper.MAPPER.mapToUser(userDto);
+		
+		Optional<User> optionalUser = userRepository.findByEmail(userDto.getEmail());
+		
+		if(optionalUser.isPresent()) {
+			throw new EmailAlreadyExistException("Email Already Exists for User");
+		}
 
 		User savedUser = userRepository.save(user);
 
