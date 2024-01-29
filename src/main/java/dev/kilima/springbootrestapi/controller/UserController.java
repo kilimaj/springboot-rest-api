@@ -21,6 +21,7 @@ import dev.kilima.springbootrestapi.entity.User;
 import dev.kilima.springbootrestapi.exception.ErrorDetails;
 import dev.kilima.springbootrestapi.exception.ResourceNotFoundException;
 import dev.kilima.springbootrestapi.service.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -31,7 +32,7 @@ public class UserController {
 
 	// build create User REST API
 	@PostMapping("create")
-	public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
+	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto user) {
 		UserDto savedUser = userService.createUser(user);
 		return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
 	}
@@ -52,7 +53,7 @@ public class UserController {
 
 	// Build update User REST API
 	@PutMapping("update/{id}")
-	public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long userId, @RequestBody UserDto user) {
+	public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long userId, @RequestBody @Valid UserDto user) {
 		user.setId(userId);
 		UserDto updatedUser = userService.updateUser(user);
 		return new ResponseEntity<>(updatedUser, HttpStatus.OK);
