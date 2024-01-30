@@ -13,5 +13,5 @@ spring:
 management:
   endpoints:
     web: 
-      exposer:
+      exposure:
         include: "*"
