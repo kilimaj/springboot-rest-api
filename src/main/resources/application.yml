@@ -18,6 +18,9 @@ management:
   info:
     env:
       enabled: true
+  endpoint:
+    health:
+      show-details: always
         
 info:
   app:
