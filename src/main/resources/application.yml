@@ -15,3 +15,9 @@ management:
     web: 
       exposure:
         include: "*"
+        
+info:
+  app:
+    name: Spring Boot  Restful Web Services
+    description: Spring Boot Restful Web Services Demo
+    version: 1.0.0
