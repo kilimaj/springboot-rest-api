@@ -25,6 +25,8 @@ management:
       show-values: always
     env:
       show-values: always
+    shutdown:
+      enabled: true
         
 info:
   app:
